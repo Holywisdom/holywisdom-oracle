@@ -42,3 +42,14 @@ cd ~/Code/github.com/Holywisdom/holywisdom-oracle
 claude --dangerously-skip-permissions --name Holywisdom --channels plugin:discord@claude-plugins-official
 ```
 ห้ามรันผ่าน SSH-only/tmux ล้วน — จะ Not logged in + bot offline
+
+## Restart (เพื่อรับ skill ใหม่)
+```bash
+bin/restart-bot.sh            # restart (opens fresh GUI Terminal, stops old bot)
+bin/restart-bot.sh --skills   # update arra-oracle-skills first, then restart
+```
+- `bin/restart-bot.sh` เปิด **Terminal window ใหม่** (osascript) แล้วรัน `bin/holywisdom-launch.sh`
+  ในนั้น → Keychain login ได้ (self-relaunch แบบ headless จะ Not logged in)
+- `bin/holywisdom-launch.sh` = launcher จริง: หยุด bot เก่า (match `--name Holywisdom`
+  ผ่าน `ps`) แล้ว `exec` ตัวใหม่ — ไม่มีทางรันซ้อนกัน
+- ไม่มี supervisor/launchd auto-restart — ถ้า process ตายเองต้อง relaunch มือ
