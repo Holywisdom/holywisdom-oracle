@@ -53,3 +53,15 @@ bin/restart-bot.sh --skills   # update arra-oracle-skills first, then restart
 - `bin/holywisdom-launch.sh` = launcher จริง: หยุด bot เก่า (match `--name Holywisdom`
   ผ่าน `ps`) แล้ว `exec` ตัวใหม่ — ไม่มีทางรันซ้อนกัน
 - ไม่มี supervisor/launchd auto-restart — ถ้า process ตายเองต้อง relaunch มือ
+
+## tmux Dashboard (web, read-only, Tailscale-only)
+```bash
+bin/tmux-dashboard.sh start     # → http://100.97.249.27:7681 (Tailscale IP)
+bin/tmux-dashboard.sh stop|status|restart
+```
+- `bin/tmux-dashboard.py` = Python HTTP server, **read-only** (ไม่รับ input, ไม่ส่ง
+  request ไป shell — tmux ถูกเรียกด้วย fixed args + validate ชื่อ session กัน injection)
+- โชว์ทุก tmux session แบบ live (poll `capture-pane` ทุก 2 วิ) — session ใหม่ที่ Bo เปิดจะขึ้นเอง
+- bind เฉพาะ Tailscale IP = เห็นได้เฉพาะใน tailnet (ไม่หลุด LAN/public)
+- launcher เรียก start ให้อัตโนมัติ · เป็น process แยกจาก bot (restart bot ไม่ล้ม dashboard)
+- ttyd 1.7.7 ใช้ไม่ได้บน macOS Sequoia นี้ (libwebsockets ไม่ยอม listen) เลยเขียน server เองแทน

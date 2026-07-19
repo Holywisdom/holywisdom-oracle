@@ -25,6 +25,10 @@ if [ -n "${OLD}" ]; then
   sleep 2   # let the Discord gateway disconnect before reconnecting
 fi
 
+# Ensure the read-only tmux dashboard is up (its own process, independent of
+# this bot — survives bot restarts). Best-effort; never blocks the launch.
+"$REPO/bin/tmux-dashboard.sh" start >/dev/null 2>&1 || true
+
 cd "$REPO"
 echo "🔮 launching Holywisdom bot…"
 exec claude --dangerously-skip-permissions \
