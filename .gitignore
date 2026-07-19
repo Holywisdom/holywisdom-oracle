@@ -1,0 +1,8 @@
+# Discord runtime secrets (symlinked into .discord/)
+.discord/.env
+.discord/access.json
+.discord/state
+.env
+*.env
+node_modules/
+.DS_Store
