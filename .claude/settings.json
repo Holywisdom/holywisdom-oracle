@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CLAUDE_HOOK_EVENT=SessionStart /Users/thanongkiat/.config/maw/hooks/status-reporter.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CLAUDE_HOOK_EVENT=Stop /Users/thanongkiat/.config/maw/hooks/status-reporter.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
